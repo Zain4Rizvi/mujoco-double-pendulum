@@ -17,17 +17,19 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         v2 = data.joint('joint2').qvel
         a2 = data.joint('joint2').qacc
 
+        print(p1,v1,a1)
+
 
         # # Apply torque to joint 1
-        # data.ctrl[0] = 100
+        data.ctrl[0] = 100
 
         # # Don't apply torque to joint 2
         # data.ctrl[1] = -3
-        data.joint('joint1').qpos = math.pi
-        mujoco.mj_forward(model, data)   # NOT mj_step — updates kinematics without integrating
+        data.joint('joint2').qpos = math.pi - p1
+        #mujoco.mj_forward(model, data)   # NOT mj_step — updates kinematics without integrating
 
-        #mujoco.mj_step(model, data)
+        mujoco.mj_step(model, data)
 
-        print("qpos:", data.qpos)
+        #print("qpos:", data.qpos)
 
         viewer.sync()
