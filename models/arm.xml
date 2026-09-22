@@ -1,4 +1,4 @@
-<mujoco model="double_pendulum">
+<mujoco model="triple_pendulum">
 
     <option gravity="0 0 -9.81"/>
 
@@ -24,7 +24,17 @@
 
                     <geom name="link2_geom" type="capsule" fromto="0 0 0 1 0 0" size="0.06" rgba="0.8 0.3 0.2 1"/>
 
-                    <geom name="end_effector" type="sphere" pos="1 0 0" size="0.1" mass="2"/>
+                    <!-- link3's origin = exactly the tip of link2. Same pattern as link1->link2. -->
+                    <body name="link3" pos="1 0 0.1">
+
+                        <!-- Same axis again -> all three links swing in the same plane -->
+                        <joint name="joint3" type="hinge" axis="0 0 1" damping="1"/>
+
+                        <geom name="link3_geom" type="capsule" fromto="0 0 0 1 0 0" size="0.04" rgba="0.3 0.8 0.3 1"/>
+
+                        <geom name="end_effector" type="sphere" pos="1 0 0" size="0.1" mass="2"/>
+
+                    </body>
 
                 </body>
 
@@ -37,6 +47,7 @@
     <actuator>
         <motor name="motor1" joint="joint1" gear="10"/>
         <motor name="motor2" joint="joint2" gear="10"/>
+        <motor name="motor3" joint="joint3" gear="10"/>
     </actuator>
 
 </mujoco>
