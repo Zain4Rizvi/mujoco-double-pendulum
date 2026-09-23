@@ -34,7 +34,7 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
 
 
         k2 = 0.00002
-        desired_angle_2 = -math.pi / (4)
+        desired_angle_2 = 0
         update_2 = k2 * (desired_angle_2 - p3 - v3 * time) * (2/(time**2))
 
         # Update Torque for Arm 1 and Arm 2
