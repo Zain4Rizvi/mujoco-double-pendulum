@@ -12,7 +12,7 @@
 
             <body name="link1" pos="0 0 0.1">
 
-                <joint name="joint1" type="hinge" axis="0 0 1" damping="1"/>
+                <joint name="joint1" type="hinge" axis="0 0 1" damping="0"/>
 
                 <geom name="link1_geom" type="capsule" fromto="0 0 0 1 0 0" size="0.08" rgba="0.2 0.4 0.8 1"/>
 
@@ -20,7 +20,7 @@
                 <body name="link2" pos="1 0 0.1">
 
                     <!-- Same axis as joint1 -> both links swing in the same plane -->
-                    <joint name="joint2" type="hinge" axis="0 0 1" damping="1"/>
+                    <joint name="joint2" type="hinge" axis="0 0 1" damping="0"/>
 
                     <geom name="link2_geom" type="capsule" fromto="0 0 0 1 0 0" size="0.06" rgba="0.8 0.3 0.2 1"/>
 
@@ -28,7 +28,7 @@
                     <body name="link3" pos="1 0 0.1">
 
                         <!-- Same axis again -> all three links swing in the same plane -->
-                        <joint name="joint3" type="hinge" axis="0 0 1" damping="1"/>
+                        <joint name="joint3" type="hinge" axis="0 0 1" damping="0"/>
 
                         <geom name="link3_geom" type="capsule" fromto="0 0 0 1 0 0" size="0.04" rgba="0.3 0.8 0.3 1"/>
 

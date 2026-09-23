@@ -7,7 +7,7 @@ data = mujoco.MjData(model)
 
 integral_1 = 0.0
 integral_2 = 0.0
-integral_limit = 5.0   # anti-windup clamp, tune this
+integral_limit = 10.0  # anti-windup clamp, tune this
 
 prev_error1 = 0.0
 prev_error2 = 0.0
@@ -31,16 +31,16 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
 
         # Define Constants
         dt = model.opt.timestep
-        kp1 = 1
-        ki1 = 0.01
-        kd1 = 0.01
+        kp1 = -30
+        ki1 = -2
+        kd1 = -10
 
-        kp2 = 0
-        ki2 = 0
-        kd2 = 0
+        kp2 = -15
+        ki2 = -2
+        kd2 = -10
 
         # Desired Values
-        error1 = p2 - (math.pi - p1)
+        error1 = (p2 + p1)   % (2 * math.pi) - math.pi
         error2 = p3
 
         #Compute Values
@@ -50,7 +50,7 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         integral_2 = max(-integral_limit, min(integral_limit, integral_2))
 
 
-        derivative_1 = (error1 - prev_error1) / dt
+        derivative_1 = v2
         derivative_2 = (error2 - prev_error2) / dt
 
         # Modifying Joint 2
@@ -60,7 +60,7 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         # Modifying Joint 3
         
         update_2 = kp2 * error2 + ki2 * integral_2 + kd2 * derivative_2
-        print(update[0], update_2[0])
+        print(error1,update[0], update_2[0])
         # Update Torque for Arm 1 and Arm 2
         data.ctrl[0] = 100
         data.ctrl[1] = update[0]
