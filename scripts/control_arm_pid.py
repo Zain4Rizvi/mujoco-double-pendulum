@@ -32,7 +32,7 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         # Define Constants
         dt = model.opt.timestep
         kp1 = -30
-        ki1 = -2
+        ki1 = -5
         kd1 = -10
 
         kp2 = -15
