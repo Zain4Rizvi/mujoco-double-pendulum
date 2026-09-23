@@ -11,6 +11,7 @@ integral_limit = 10.0  # anti-windup clamp, tune this
 
 prev_error1 = 0.0
 prev_error2 = 0.0
+curr_time = 0
 
 
 with mujoco.viewer.launch_passive(model, data) as viewer:
@@ -62,7 +63,10 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         update_2 = kp2 * error2 + ki2 * integral_2 + kd2 * derivative_2
         print(error1,update[0], update_2[0])
         # Update Torque for Arm 1 and Arm 2
-        data.ctrl[0] = 100
+        if curr_time % 50 <= 25:
+            data.ctrl[0] = 100
+        else:
+            data.ctrl[0] = -100
         data.ctrl[1] = update[0]
         data.ctrl[2] = update_2[0]
 
@@ -75,5 +79,6 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         # Update "previous" state for next iteration's derivative
         prev_error1 = error1
         prev_error2 = error2
+        curr_time += dt
 
         viewer.sync()
