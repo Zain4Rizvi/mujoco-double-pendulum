@@ -46,7 +46,7 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
         kd1 = 1000
         speed = 0.5
 
-        kp2 = -100
+        kp2 = -20
         ki2 = 0
         kd2 = -1
 
